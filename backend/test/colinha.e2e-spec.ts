@@ -2,6 +2,7 @@ import { INestApplication } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import request from 'supertest';
 import { AppModule } from '../src/app.module';
+import { TAMANHO_IDENTIFICADOR } from '../src/colinha/identificador';
 
 describe('API de colinhas (e2e)', () => {
   let app: INestApplication;
@@ -25,7 +26,7 @@ describe('API de colinhas (e2e)', () => {
       .send({ df: '10123', de: '', gov: '40' })
       .expect(201);
 
-    expect(criada.body.id).toEqual(expect.any(String));
+    expect(criada.body.id).toHaveLength(TAMANHO_IDENTIFICADOR);
 
     const lida = await request(app.getHttpServer())
       .get(`/colinhas/${criada.body.id}`)
