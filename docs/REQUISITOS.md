@@ -6,7 +6,7 @@ O backend passa a guardar esses dados. O link compartilhado leva só um identifi
 
 Estado atual: o backend guarda a colinha sob um identificador curto e estável. Quem tem o identificador lê e atualiza os seis slots, com número e comentário, sem conta de usuário. Esvaziar um slot apaga o número e o comentário daquele voto.
 
-Stack: NestJS, no diretório `backend/`. O Next.js continua na raiz do repositório.
+Stack: NestJS, na raiz deste repositório.
 
 ---
 
@@ -75,6 +75,63 @@ Mudar um voto ou um comentário grava de novo o mesmo registro. O link enviado �
 ---
 
 
+
+## Tabela de IDs
+
+| ID | Resumo | Prioridade | Depende de | Status |
+|----|--------|------------|------------|--------|
+| REQ-001 | Projeto NestJS na raiz do repositório | 1 | nenhuma | implementado |
+| REQ-002 | Sem arquivos de teste | 2 | nenhuma | a implementar |
+
+## REQ-001 — Projeto NestJS na raiz do repositório
+
+**Status:** implementado
+**Prioridade:** 1
+**Depende de:** nenhuma
+
+### Objetivo
+
+O conteúdo da pasta `backend/` passa para a raiz deste repositório.
+
+### Experiência desejada
+
+- Quem abre o repositório encontra o projeto NestJS na raiz, com `package.json`, `src/` e a configuração do Nest.
+- A pasta `backend/` não existe mais.
+
+### Fora do escopo deste requisito
+
+- Mudar o contrato da API de colinhas.
+- Apagar arquivos de teste.
+
+### Critérios de aceite
+
+- [x] `package.json`, `src/` e os arquivos de configuração do NestJS ficam na raiz.
+- [x] A pasta `backend/` não permanece.
+
+## REQ-002 — Sem arquivos de teste
+
+**Status:** a implementar
+**Prioridade:** 2
+**Depende de:** nenhuma
+
+### Objetivo
+
+O repositório não contém arquivos de teste.
+
+### Experiência desejada
+
+- Não há testes unitários nem de ponta a ponta no projeto.
+- A pasta `test/` não existe.
+
+### Fora do escopo deste requisito
+
+- Mudar o comportamento da API de colinhas.
+- Mover o projeto NestJS de pasta.
+
+### Critérios de aceite
+
+- [ ] Não há arquivos `*.spec.ts` nem `*.e2e-spec.ts`.
+- [ ] A pasta `test/` não permanece.
 
 ## Fora deste recorte
 
