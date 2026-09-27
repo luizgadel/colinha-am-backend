@@ -4,7 +4,7 @@ O front guarda a colinha na query da URL: os números dos seis votos (`df`, `de`
 
 O backend passa a guardar esses dados. O link compartilhado leva só um identificador curto. Quem abre o link recupera os votos e os comentários no servidor.
 
-Estado atual: criar e atualizar a colinha grava os seis números e, em cada slot com candidato, no máximo um comentário de até 210 caracteres. O identificador curto permanece o mesmo.
+Estado atual: a leitura pelo identificador devolve os seis slots, com número e comentário de cada um. Identificador desconhecido responde que a colinha não existe.
 
 Stack: NestJS, no diretório `backend/`. O Next.js continua na raiz do repositório.
 
@@ -52,12 +52,12 @@ Cada slot pode ter um comentário, o texto livre que o eleitor anota sobre aquel
 
 ### 4. Reabrir pelo identificador
 
-**Status:** a implementar
+**Status:** implementado
 
 Abrir o link curto devolve a colinha completa, para o front montar os cards sem ler números e textos na URL.
 
-- [ ] A leitura pelo identificador devolve os seis slots, com número e comentário de cada um.
-- [ ] Identificador desconhecido responde que a colinha não existe.
+- [x] A leitura pelo identificador devolve os seis slots, com número e comentário de cada um.
+- [x] Identificador desconhecido responde que a colinha não existe.
 
 
 
