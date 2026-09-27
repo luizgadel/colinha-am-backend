@@ -81,7 +81,7 @@ Mudar um voto ou um comentário grava de novo o mesmo registro. O link enviado �
 | ID | Resumo | Prioridade | Depende de | Status |
 |----|--------|------------|------------|--------|
 | REQ-001 | Projeto NestJS na raiz do repositório | 1 | nenhuma | implementado |
-| REQ-002 | Sem arquivos de teste | 2 | nenhuma | a implementar |
+| REQ-002 | Sem arquivos de teste | 2 | nenhuma | implementado |
 
 ## REQ-001 — Projeto NestJS na raiz do repositório
 
@@ -110,7 +110,7 @@ O conteúdo da pasta `backend/` passa para a raiz deste repositório.
 
 ## REQ-002 — Sem arquivos de teste
 
-**Status:** a implementar
+**Status:** implementado
 **Prioridade:** 2
 **Depende de:** nenhuma
 
@@ -130,8 +130,8 @@ O repositório não contém arquivos de teste.
 
 ### Critérios de aceite
 
-- [ ] Não há arquivos `*.spec.ts` nem `*.e2e-spec.ts`.
-- [ ] A pasta `test/` não permanece.
+- [x] Não há arquivos `*.spec.ts` nem `*.e2e-spec.ts`.
+- [x] A pasta `test/` não permanece.
 
 ## Fora deste recorte
 
