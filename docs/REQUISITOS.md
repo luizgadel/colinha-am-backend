@@ -4,7 +4,7 @@ O front guarda a colinha na query da URL: os números dos seis votos (`df`, `de`
 
 O backend passa a guardar esses dados. O link compartilhado leva só um identificador curto. Quem abre o link recupera os votos e os comentários no servidor.
 
-Estado atual: há um serviço NestJS em `backend/`, sem conta de usuário, com rotas para criar, ler e atualizar a colinha. O identificador ainda não é curto, e os comentários ainda não são gravados.
+Estado atual: criar uma colinha grava os seis números e devolve um identificador curto, que permanece o mesmo quando os votos mudam. Os comentários ainda não são gravados.
 
 Stack: NestJS, no diretório `backend/`. O Next.js continua na raiz do repositório.
 
@@ -26,14 +26,14 @@ Serviço NestJS separado do site estático, responsável por criar, ler e atuali
 
 ### 2. Salvar a colinha
 
-**Status:** a implementar
+**Status:** implementado
 
 Uma colinha é o conjunto dos seis slots da urna. Cada slot guarda o número do candidato escolhido, ou fica vazio.
 
-- [ ] Criar uma colinha grava os números dos slots `df`, `de`, `s1`, `s2`, `gov` e `pr`.
-- [ ] Slot sem candidato fica vazio.
-- [ ] A resposta devolve um identificador curto e estável, próprio daquela colinha.
-- [ ] O identificador não muda quando os votos ou os comentários mudam.
+- [x] Criar uma colinha grava os números dos slots `df`, `de`, `s1`, `s2`, `gov` e `pr`.
+- [x] Slot sem candidato fica vazio.
+- [x] A resposta devolve um identificador curto e estável, próprio daquela colinha.
+- [x] O identificador não muda quando os votos ou os comentários mudam.
 
 
 
