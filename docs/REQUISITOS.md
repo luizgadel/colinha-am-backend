@@ -4,7 +4,7 @@ O front guarda a colinha na query da URL: os números dos seis votos (`df`, `de`
 
 O backend passa a guardar esses dados. O link compartilhado leva só um identificador curto. Quem abre o link recupera os votos e os comentários no servidor.
 
-Estado atual: a leitura pelo identificador devolve os seis slots, com número e comentário de cada um. Identificador desconhecido responde que a colinha não existe.
+Estado atual: o backend guarda a colinha sob um identificador curto e estável. Quem tem o identificador lê e atualiza os seis slots, com número e comentário, sem conta de usuário. Esvaziar um slot apaga o número e o comentário daquele voto.
 
 Stack: NestJS, no diretório `backend/`. O Next.js continua na raiz do repositório.
 
@@ -63,14 +63,14 @@ Abrir o link curto devolve a colinha completa, para o front montar os cards sem 
 
 ### 5. Atualizar a mesma colinha
 
-**Status:** a implementar
+**Status:** implementado
 
 Mudar um voto ou um comentário grava de novo o mesmo registro. O link enviado à família continua o mesmo.
 
-- [ ] Atualizar substitui números e comentários da colinha já salva.
-- [ ] O identificador da resposta é o mesmo da colinha atualizada.
-- [ ] Esvaziar um slot apaga o número e o comentário daquele voto.
-- [ ] Atualizar uma colinha que não existe responde que ela não existe.
+- [x] Atualizar substitui números e comentários da colinha já salva.
+- [x] O identificador da resposta é o mesmo da colinha atualizada.
+- [x] Esvaziar um slot apaga o número e o comentário daquele voto.
+- [x] Atualizar uma colinha que não existe responde que ela não existe.
 
 ---
 
