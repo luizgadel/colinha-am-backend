@@ -57,4 +57,44 @@ describe('API de colinhas (e2e)', () => {
       .send({ df: '10123', cdf: 'a'.repeat(211) })
       .expect(400);
   });
+
+  it('devolve os seis slots e avisa quando o identificador não existe', async () => {
+    const criada = await request(app.getHttpServer())
+      .post('/colinhas')
+      .send({
+        df: '10123',
+        cdf: 'nota do distrito',
+        de: '45678',
+        s2: '55555',
+        cs2: 'senado',
+        pr: '13',
+      })
+      .expect(201);
+
+    const lida = await request(app.getHttpServer())
+      .get(`/colinhas/${criada.body.id}`)
+      .expect(200);
+
+    expect(lida.body).toEqual({
+      id: criada.body.id,
+      df: '10123',
+      cdf: 'nota do distrito',
+      de: '45678',
+      cde: null,
+      s1: null,
+      cs1: null,
+      s2: '55555',
+      cs2: 'senado',
+      gov: null,
+      cgov: null,
+      pr: '13',
+      cpr: null,
+    });
+
+    const ausente = await request(app.getHttpServer())
+      .get('/colinhas/nao-existe')
+      .expect(404);
+
+    expect(ausente.body.message).toBe('Colinha não existe');
+  });
 });

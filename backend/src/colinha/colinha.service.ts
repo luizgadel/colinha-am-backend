@@ -22,7 +22,7 @@ export class ColinhaService {
   buscar(id: string): Colinha {
     const colinha = this.repositorio.buscarPorId(id);
     if (!colinha) {
-      throw new NotFoundException('Colinha não encontrada');
+      throw new NotFoundException('Colinha não existe');
     }
     return colinha;
   }
