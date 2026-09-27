@@ -50,4 +50,11 @@ describe('API de colinhas (e2e)', () => {
       pr: '13',
     });
   });
+
+  it('recusa comentário com mais de 210 caracteres', async () => {
+    await request(app.getHttpServer())
+      .post('/colinhas')
+      .send({ df: '10123', cdf: 'a'.repeat(211) })
+      .expect(400);
+  });
 });

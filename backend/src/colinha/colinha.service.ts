@@ -1,7 +1,13 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { ColinhaRepository } from './colinha.repository';
 import { identificadorCurto } from './identificador';
-import { CHAVES_NUMERO, Colinha, EntradaColinha } from './colinha.types';
+import {
+  CHAVES_NUMERO,
+  COMENTARIO_DO_SLOT,
+  Colinha,
+  EntradaColinha,
+  LIMITE_COMENTARIO,
+} from './colinha.types';
 
 @Injectable()
 export class ColinhaService {
@@ -41,7 +47,10 @@ export class ColinhaService {
   private montar(id: string, entrada: EntradaColinha): Colinha {
     const colinha = { id } as Colinha;
     for (const chave of CHAVES_NUMERO) {
-      colinha[chave] = numeroDoSlot(entrada[chave]);
+      const numero = numeroDoSlot(entrada[chave]);
+      const comentario = comentarioDoSlot(entrada[COMENTARIO_DO_SLOT[chave]]);
+      colinha[chave] = numero;
+      colinha[COMENTARIO_DO_SLOT[chave]] = numero ? comentario : null;
     }
     return colinha;
   }
@@ -53,4 +62,18 @@ function numeroDoSlot(valor: unknown): string | null {
   }
   const texto = valor.trim();
   return texto.length === 0 ? null : texto;
+}
+
+function comentarioDoSlot(valor: unknown): string | null {
+  if (typeof valor !== 'string') {
+    return null;
+  }
+  const texto = valor.trim();
+  if (texto.length === 0) {
+    return null;
+  }
+  if (texto.length > LIMITE_COMENTARIO) {
+    throw new BadRequestException('Comentário passa de 210 caracteres');
+  }
+  return texto;
 }

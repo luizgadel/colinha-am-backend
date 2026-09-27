@@ -1,3 +1,4 @@
+import { BadRequestException } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
 import { ColinhaRepository } from './colinha.repository';
 import { ColinhaService } from './colinha.service';
@@ -5,6 +6,7 @@ import {
   ALFABETO_IDENTIFICADOR,
   TAMANHO_IDENTIFICADOR,
 } from './identificador';
+import { LIMITE_COMENTARIO } from './colinha.types';
 
 describe('ColinhaService', () => {
   let service: ColinhaService;
@@ -85,5 +87,40 @@ describe('ColinhaService', () => {
 
     const outra = service.criar({ df: '10' });
     expect(outra.id).not.toBe(criada.id);
+  });
+
+  it('grava no máximo um comentário por slot e recusa texto acima de 210', () => {
+    const criada = service.criar({
+      df: '10123',
+      cdf: '  voto do distrito  ',
+      de: '45678',
+      cde: '',
+      s1: '55555',
+      cs1: '   ',
+      gov: '40',
+      cgov: 'a'.repeat(LIMITE_COMENTARIO),
+      pr: null,
+      cpr: 'sem candidato',
+    });
+
+    expect(criada).toMatchObject({
+      df: '10123',
+      cdf: 'voto do distrito',
+      de: '45678',
+      cde: null,
+      s1: '55555',
+      cs1: null,
+      s2: null,
+      cs2: null,
+      gov: '40',
+      cgov: 'a'.repeat(LIMITE_COMENTARIO),
+      pr: null,
+      cpr: null,
+    });
+    expect(criada.id).toBe(service.atualizar(criada.id, { df: '10123', cdf: 'outro texto' }).id);
+
+    expect(() => service.criar({ df: '10', cdf: 'b'.repeat(LIMITE_COMENTARIO + 1) })).toThrow(
+      BadRequestException,
+    );
   });
 });
