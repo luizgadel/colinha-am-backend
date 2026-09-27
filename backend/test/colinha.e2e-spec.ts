@@ -97,4 +97,39 @@ describe('API de colinhas (e2e)', () => {
 
     expect(ausente.body.message).toBe('Colinha não existe');
   });
+
+  it('substitui a mesma colinha e recusa atualizar um id inexistente', async () => {
+    const criada = await request(app.getHttpServer())
+      .post('/colinhas')
+      .send({ df: '10123', cdf: 'distrito', gov: '40', cgov: 'governo' })
+      .expect(201);
+
+    const atualizada = await request(app.getHttpServer())
+      .put(`/colinhas/${criada.body.id}`)
+      .send({ df: '', cdf: 'não deve ficar', pr: '13', cpr: 'presidente' })
+      .expect(200);
+
+    expect(atualizada.body).toEqual({
+      id: criada.body.id,
+      df: null,
+      cdf: null,
+      de: null,
+      cde: null,
+      s1: null,
+      cs1: null,
+      s2: null,
+      cs2: null,
+      gov: null,
+      cgov: null,
+      pr: '13',
+      cpr: 'presidente',
+    });
+
+    const ausente = await request(app.getHttpServer())
+      .put('/colinhas/nao-existe')
+      .send({ df: '10' })
+      .expect(404);
+
+    expect(ausente.body.message).toBe('Colinha não existe');
+  });
 });

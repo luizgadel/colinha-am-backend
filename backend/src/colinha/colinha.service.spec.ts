@@ -1,4 +1,4 @@
-import { BadRequestException } from '@nestjs/common';
+import { BadRequestException, NotFoundException } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
 import { ColinhaRepository } from './colinha.repository';
 import { ColinhaService } from './colinha.service';
@@ -122,5 +122,42 @@ describe('ColinhaService', () => {
     expect(() => service.criar({ df: '10', cdf: 'b'.repeat(LIMITE_COMENTARIO + 1) })).toThrow(
       BadRequestException,
     );
+  });
+
+  it('substitui a colinha salva, mantém o id e apaga slot esvaziado', () => {
+    const criada = service.criar({
+      df: '10123',
+      cdf: 'distrito',
+      de: '45678',
+      cde: 'estadual',
+      gov: '40',
+      cgov: 'governo',
+    });
+
+    const atualizada = service.atualizar(criada.id, {
+      df: '',
+      cdf: 'não deve ficar',
+      s1: '55555',
+      cs1: 'senado novo',
+    });
+
+    expect(atualizada.id).toBe(criada.id);
+    expect(atualizada).toEqual({
+      id: criada.id,
+      df: null,
+      cdf: null,
+      de: null,
+      cde: null,
+      s1: '55555',
+      cs1: 'senado novo',
+      s2: null,
+      cs2: null,
+      gov: null,
+      cgov: null,
+      pr: null,
+      cpr: null,
+    });
+    expect(service.buscar(criada.id)).toEqual(atualizada);
+    expect(() => service.atualizar('nao-existe', { df: '10' })).toThrow(NotFoundException);
   });
 });
